@@ -1,0 +1,66 @@
+.container {
+  border: 1px solid red;
+  min-height: 10%;
+  margin-bottom: 2rem;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  flex-direction: column;
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  border: 2px solid green;
+  width: 80%;
+}
+
+.buttonContainer {
+  position: absolute;
+  top: 45%;
+}
+
+.button {
+  position: absolute;
+  top: 45%;
+
+  cursor: pointer;
+  padding: 0;
+}
+
+.left {
+  left: 20px;
+}
+
+.right {
+  right: 20px;
+}
+
+.dotContainer {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  background-color: gray;
+  border-radius: 50%;
+}
+
+.active {
+  background-color: white;
+}
+
+@media (min-width: 768px) {
+  .container {
+    min-height: 25%;
+  }
+  .imageContainer {
+    width: 30%;
+  }
+}

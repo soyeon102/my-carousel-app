@@ -1,0 +1,23 @@
+.container {
+  border: 1px solid red;
+}
+
+.imageContainer {
+  display: grid;
+  grid-template-columns: repeat(1fr);
+  padding: 1rem 1.5rem;
+  gap: 20px;
+}
+
+.image {
+  border: 1px solid green;
+  width: 100%;
+  aspect-ratio: 1/1;
+}
+
+@media (min-width: 768px) {
+  .imageContainer {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 1rem 2rem;
+  }
+}
