@@ -26,6 +26,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  cursor: pointer;
 }
 
 .image.show {
@@ -45,10 +46,17 @@
 }
 
 .button {
+  background: none;
+  border: none;
+  outline: none;
   position: absolute;
   top: 45%;
   cursor: pointer;
   padding: 0;
+}
+
+.button:hover svg {
+  fill: white;
 }
 
 .left {

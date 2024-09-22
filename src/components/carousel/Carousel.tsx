@@ -1,11 +1,18 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./Carousel.module.css";
-import leftArrow from "/icons/left-arrow.svg";
-import rightArrow from "/icons/right-arrow.svg";
+
+import RightIcon from "../../assets/icons/right-arrow.svg?react";
+import LeftIcon from "../../assets/icons/left-arrow.svg?react";
 
 import { ImageProps } from "../../types/ImageType";
 
-const Carousel = ({ images }: { images: ImageProps[] }) => {
+const Carousel = ({
+  images,
+  setSelectedImage,
+}: {
+  images: ImageProps[];
+  setSelectedImage: (item: ImageProps) => void;
+}) => {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [startX, setStartX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -66,7 +73,7 @@ const Carousel = ({ images }: { images: ImageProps[] }) => {
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
       >
-        {images.map((item, index) => {
+        {images.map((image, index) => {
           const isActive = selectedIndex === index;
           const isPrev =
             (selectedIndex - 1 + images.length) % images.length === index;
@@ -80,13 +87,14 @@ const Carousel = ({ images }: { images: ImageProps[] }) => {
 
           return (
             <li
-              key={item.id}
+              key={image.id}
+              onClick={() => setSelectedImage(image)}
               className={`${styles.image} ${isActive && styles.show}`}
               style={{
                 transform: transformStyle,
               }}
             >
-              <img src={item.urls.small} alt={item.alt_description} />
+              <img src={image.urls.small} alt={image.alt_description} />
             </li>
           );
         })}
@@ -96,13 +104,13 @@ const Carousel = ({ images }: { images: ImageProps[] }) => {
         className={`${styles.button} ${styles.left}`}
         onClick={handleClickLeft}
       >
-        <img src={leftArrow} alt="left" />
+        <LeftIcon />
       </button>
       <button
         className={`${styles.button} ${styles.right}`}
         onClick={handleClickRight}
       >
-        <img src={rightArrow} alt="right" />
+        <RightIcon />
       </button>
 
       <ul className={styles.dotContainer}>
