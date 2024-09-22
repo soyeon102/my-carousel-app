@@ -1,6 +1,5 @@
 .container {
-  border: 1px solid red;
-  min-height: 10%;
+  height: 500px;
   margin-bottom: 2rem;
   padding: 1rem 2rem;
   display: flex;
@@ -14,8 +13,30 @@
   display: flex;
   justify-content: space-between;
   height: 100%;
-  border: 2px solid green;
   width: 80%;
+  overflow: hidden;
+  position: relative;
+}
+
+.image {
+  min-width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.image.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .buttonContainer {
@@ -26,7 +47,6 @@
 .button {
   position: absolute;
   top: 45%;
-
   cursor: pointer;
   padding: 0;
 }
@@ -50,6 +70,7 @@
   height: 6px;
   background-color: gray;
   border-radius: 50%;
+  transition: background-color 0.3s ease; /* 부드러운 색상 전환 */
 }
 
 .active {
@@ -57,10 +78,7 @@
 }
 
 @media (min-width: 768px) {
-  .container {
-    min-height: 25%;
-  }
   .imageContainer {
-    width: 30%;
+    width: 50%;
   }
 }
