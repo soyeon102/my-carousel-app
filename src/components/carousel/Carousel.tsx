@@ -6,13 +6,7 @@ import LeftIcon from "../../assets/icons/left-arrow.svg?react";
 
 import { ImageProps } from "../../types/ImageType";
 
-const Carousel = ({
-  images,
-  setSelectedImage,
-}: {
-  images: ImageProps[];
-  setSelectedImage: (item: ImageProps) => void;
-}) => {
+const Carousel = ({ images }: { images: ImageProps[] }) => {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [startX, setStartX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -88,7 +82,6 @@ const Carousel = ({
           return (
             <li
               key={image.id}
-              onClick={() => setSelectedImage(image)}
               className={`${styles.image} ${isActive && styles.show}`}
               style={{
                 transform: transformStyle,
