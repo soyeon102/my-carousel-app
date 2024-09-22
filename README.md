@@ -1,50 +1,53 @@
-# React + TypeScript + Vite
+## 프로젝트 실행
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- 패키지 설치
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```
+$ npm install
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- 기본 .env설정
+  - 이 환경 변수는 [Unsplash API 접근](https://unsplash.com/documentation#authorization)을 위한 인증 키입니다.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
 ```
+VITE_ACCESS_KEY=client_id
+```
+
+- 서버 실행
+
+```
+$ npm run dev
+```
+
+<br/>
+
+## 기능 리스트
+
+### 아미지 목록
+
+- [x] Unsplash API를 사용해 이미지 목록 불러오기
+
+### 상단 캐러셀
+
+- [x] API가 내려주는 첫 5개의 이미지를 슬라이드 형태로 보여주는 이미지 캐러셀 구현
+- [x] 화살표 버튼을 통해 이미지 넘기기
+- [x] 일정 시간이 지나면 자동으로 다음 이미지로 넘어가기
+- [x] 현재 보여지는 이미지 도트 표시 추가
+- [x] 캐러셀 라이브러리 사용하지 않기
+
+### 세로 이미지 갤러리
+
+- [x] 나머지 25장의 이미지들을 세로 스크롤 방식으로 로드하여 표시
+- [x] 각 줄당 이미지는 3개씩, 총 9줄로 구현
+- [ ] 스크롤 최하단에 닿으면 다음 30장의 랜덤 이미지를 추가
+
+### 모달
+
+- [x] 갤러리의 이미지를 클릭하면 모달창을 띄워 이미지를 확대
+- [x] 닫기 버튼 또는 모달 외의 영역을 누르면 해당 모달이 닫힘
+
+### 기타
+
+- [x] 캐러셀 이미지 전환시 애니메이션 활용
+- [x] 캐러셀 이미지 좌우 이동을 드래그로 가능
+- [x] 반응형으로 구현
