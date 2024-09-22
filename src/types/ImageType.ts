@@ -1,8 +1,9 @@
 export interface ImageProps {
   id: string;
   urls: {
-    small: string;
     thumbs: string;
+    small: string;
+    regular: string;
   };
   alt_description: string;
 }

@@ -1,6 +1,6 @@
-import styles from "./Home.module.css";
-
 import { useEffect, useState } from "react";
+
+import styles from "./Home.module.css";
 import Carousel from "../components/carousel/Carousel";
 import Gallery from "../components/gallery/Gallery";
 import Modal from "../components/modal/Modal";
@@ -10,10 +10,16 @@ import { ImageProps } from "../types/ImageType";
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [carouselImages, setCarouselImages] = useState<ImageProps[]>([]);
-  const [galleryImages, setGalleryImages] = useState<ImageProps[]>([]);
+  const [images, setImages] = useState<ImageProps[]>([]);
+
+  const [selectedImage, setSelectedImage] = useState<ImageProps | null>(null);
 
   const handleClose = () => setIsOpen(false);
+
+  const handleSelectedImage = (item: ImageProps) => {
+    setIsOpen(true);
+    setSelectedImage(item);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,8 +31,7 @@ const Home = () => {
         );
         const result = (await response.json()) as [];
 
-        setCarouselImages(result.slice(0, CAROUSEL_IMAGE_COUNT));
-        setGalleryImages(result.slice(CAROUSEL_IMAGE_COUNT));
+        setImages(result);
       } catch (error) {
         console.log("error", error);
       }
@@ -35,14 +40,16 @@ const Home = () => {
     fetchData();
   }, []);
 
-  // console.log("carouselImages", carouselImages);
-  // console.log("galleryImages", galleryImages);
-
   return (
     <div className={styles.container}>
-      <Carousel images={carouselImages} />
-      <Gallery images={galleryImages} />
-      {isOpen && <Modal open={isOpen} close={handleClose} />}
+      <Carousel images={images.slice(0, CAROUSEL_IMAGE_COUNT)} />
+      <Gallery
+        images={images.slice(CAROUSEL_IMAGE_COUNT)}
+        setSelectedImage={handleSelectedImage}
+      />
+      {isOpen && selectedImage && (
+        <Modal open={isOpen} close={handleClose} image={selectedImage} />
+      )}
     </div>
   );
 };
