@@ -39,7 +39,7 @@ $ npm run dev
 
 - [x] 나머지 25장의 이미지들을 세로 스크롤 방식으로 로드하여 표시
 - [x] 각 줄당 이미지는 3개씩, 총 9줄로 구현
-- [ ] 스크롤 최하단에 닿으면 다음 30장의 랜덤 이미지를 추가
+- [x] 스크롤 최하단에 닿으면 다음 30장의 랜덤 이미지를 추가
 
 ### 모달
 
@@ -51,3 +51,44 @@ $ npm run dev
 - [x] 캐러셀 이미지 전환시 애니메이션 활용
 - [x] 캐러셀 이미지 좌우 이동을 드래그로 가능
 - [x] 반응형으로 구현
+
+<br/>
+
+## Issue
+
+1. `https://api.unsplash.com/photos/random` API 호출 시, 페이지를 변경해도 같은 아이디를 가진 아이템이 중복해서 나타나는 이슈가 있었습니다. 해당 API 특성상 랜덤하게 불러오는 사진으로 인해 불가피하기 필터링을 하여 무한 스크롤을 구현했습니다.
+
+   ```tsx
+   // Home.tsx
+   const response = await fetch(
+     `https://api.unsplash.com/photos/random/?client_id=${
+       import.meta.env.VITE_ACCESS_KEY
+     }&count=30&page=${page}`
+   );
+   const result = (await response.json()) as ImageProps[];
+   const filteredImages = result.filter(
+     (image) => !images.some((item) => item.id === image.id)
+   );
+   setImages((prev) => [...prev, ...filteredImages]);
+   ```
+
+2. `React`와 `vite`로만 구현했지만 svg컴포넌트를 사용, 마우스 호버시 svg의 색상 변경을 위해 `vite-plugin-svgr`패키지를 사용했습니다. 해당 패키지 사용시 타입스크립트 오류가 발생하여 타입스크립트가 패키지 유형을 인식할 수 있도록 `tsconfig`의 `compilerOptions`에 아래 코드를 적용했습니다.
+
+   ```tsx
+   // vite.config.ts
+   import svgr from "vite-plugin-svgr";
+   export default defineConfig({
+     plugins: [react(), svgr()],
+   });
+   ```
+
+   ```tsx
+   // tsconfig.app.json
+   {
+     "compilerOptions": {
+       ...
+       "types": ["vite-plugin-svgr/client"]
+     },
+
+   }
+   ```
