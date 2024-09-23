@@ -4,9 +4,11 @@ import { ImageProps } from "../../types/ImageType";
 const Gallery = ({
   images,
   setSelectedImage,
+  isLoading,
 }: {
   images: ImageProps[];
   setSelectedImage: (item: ImageProps) => void;
+  isLoading: boolean;
 }) => {
   return (
     <div className={styles.container}>
@@ -21,6 +23,7 @@ const Gallery = ({
           </li>
         ))}
       </ul>
+      {isLoading && <div>loading....</div>}
     </div>
   );
 };
